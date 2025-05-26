@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const CACHE_DURATION = 30000; // 30 seconds cache
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 // Cache storage
 const cache = new Map();
