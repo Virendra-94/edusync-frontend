@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { Container, Row, Col, Card, Form, Button, InputGroup, Spinner } from 'react-bootstrap';
 import { BiUpload, BiFile, BiCopy } from 'react-icons/bi';
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 const InstructorDashboard = () => {
     const navigate = useNavigate();
