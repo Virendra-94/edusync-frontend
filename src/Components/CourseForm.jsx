@@ -4,7 +4,7 @@ import Notification from "./Notification";
 import { Modal, Form, Button, Container, Row, Col, Alert, ListGroup } from 'react-bootstrap';
 import { BiArrowBack, BiUpload, BiTrash, BiFile } from 'react-icons/bi';
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 function CourseForm({ course, onClose, instructorId }) {
   const [title, setTitle] = useState(course ? course.title : "");
