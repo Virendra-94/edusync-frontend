@@ -5,7 +5,7 @@ import Notification from "./Notification";
 import { Modal, Form, Button, Card, Row, Col, InputGroup } from "react-bootstrap";
 import { BiArrowBack, BiPlus, BiTrash, BiCheck } from "react-icons/bi";
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 function AssessmentForm({ assessment, onClose, courses }) {
   const { user } = useAuth();
