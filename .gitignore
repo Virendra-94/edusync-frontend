@@ -48,3 +48,19 @@ dist-ssr
 
 # Configuration files with sensitive data
 edusync_api/appsettings.json
+
+# Environment files
+.env
+*.env
+!.env.example
+appsettings.Development.json
+appsettings.json
+**/appsettings.Development.json
+**/appsettings.json
+
+# User secrets
+**/secrets.json
+**/*.user
+**/*.userosscache
+**/*.suo
+**/*.userprefs
