@@ -1,0 +1,80 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../Context/AuthContext";
+import { Container, Spinner, Alert, Table, Card } from 'react-bootstrap';
+
+const API_URL = "https://localhost:7136/api";
+
+function StudentAssessmentHistory() {
+  const { user } = useAuth();
+  const [history, setHistory] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAssessmentHistory();
+  }, []);
+
+  const fetchAssessmentHistory = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${API_URL}/Assessment/history/${user.userId}`);
+      setHistory(res.data);
+    } catch (error) {
+      console.error("Error fetching assessment history:", error);
+      setHistory([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <Container className="text-center py-5 min-vh-100">
+        <Spinner animation="border" variant="primary" style={{ color: '#1a73e8' }} />
+        <p className="mt-3 text-primary">Loading assessment history...</p>
+      </Container>
+    );
+  }
+
+  return (
+    <Container fluid className="py-4">
+      <h2 className="text-primary mb-4">Assessment History</h2>
+      {history.length === 0 ? (
+        <Alert variant="info" className="text-center py-4 shadow-sm">
+          No assessment attempts yet.
+        </Alert>
+      ) : (
+        <Card className="border-0 shadow-sm">
+          <Card.Body>
+            <div className="table-responsive">
+              <Table striped bordered hover className="mb-0">
+                <thead>
+                  <tr>
+                    <th>Assessment Title</th>
+                    <th>Score</th>
+                    <th>Percentage</th>
+                    <th>Attempt Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {history.map((attempt) => (
+                    <tr key={attempt.attemptId}>
+                      <td>{attempt.assessmentTitle}</td>
+                      <td>{attempt.score}/{attempt.maxScore}</td>
+                      <td>{attempt.percentage}%</td>
+                      <td>
+                        {new Date(attempt.attemptDate).toLocaleDateString('en-GB')}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          </Card.Body>
+        </Card>
+      )}
+    </Container>
+  );
+}
+
+export default StudentAssessmentHistory; 
