@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create axios instance with default config
 const api = axios.create({
-  baseURL: "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net//api",
+  baseURL: "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api",
   headers: {
     "Content-Type": "application/json",
   },
