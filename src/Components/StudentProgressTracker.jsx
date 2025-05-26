@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Badge, Alert } from 'react-bootstrap';
 import { BiX } from 'react-icons/bi';
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 const DEBOUNCE_DELAY = 300; // 300ms delay for debouncing
 
 function StudentProgressTracker() {
