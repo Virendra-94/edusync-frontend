@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Container, Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { BiUpload, BiCopy, BiFile } from 'react-icons/bi';
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 const FileUpload = ({ onUploadSuccess }) => {
     const [selectedFile, setSelectedFile] = useState(null);
