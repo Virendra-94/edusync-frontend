@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Alert, Badge, ListGroup } from 'react-bootstrap';
 import { BiPlus, BiPencil, BiTrash, BiShow, BiX, BiFile, BiDownload } from 'react-icons/bi';
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 function InstructorCourseList({ onCoursesUpdate }) {
   const { user } = useAuth();
