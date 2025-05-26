@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button, ListGroup, Badge, Alert, Spinner } from "react-bootstrap";
 import { BiArrowBack, BiCheckCircle } from "react-icons/bi";
 
-const API_URL = "http://localhost:5172/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 function StudentAssessmentList({ onNewAssessment }) {
   const { user } = useAuth();
