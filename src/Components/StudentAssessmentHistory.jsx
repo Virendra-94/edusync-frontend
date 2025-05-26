@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
 import { Container, Spinner, Alert, Table, Card } from 'react-bootstrap';
 
-const API_URL = "https://localhost:7136/api";
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 function StudentAssessmentHistory() {
   const { user } = useAuth();
