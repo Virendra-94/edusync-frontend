@@ -57,6 +57,7 @@ appsettings.Development.json
 appsettings.json
 **/appsettings.Development.json
 **/appsettings.json
+**/set-secrets.ps1
 
 # User secrets
 **/secrets.json
