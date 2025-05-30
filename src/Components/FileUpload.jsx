@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { api } from '../config/api';
 import { toast } from 'react-toastify';
 import { Container, Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { BiUpload, BiCopy, BiFile } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 const FileUpload = ({ onUploadSuccess }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -26,7 +24,7 @@ const FileUpload = ({ onUploadSuccess }) => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await axios.post(`${API_URL}/file/upload`, formData, {
+            const response = await api.post('/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

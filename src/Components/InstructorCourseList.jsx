@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import CourseForm from "./CourseForm";
 import { useAuth } from "../Context/AuthContext";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { toast } from "react-toastify";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Alert, Badge, ListGroup } from 'react-bootstrap';
 import { BiPlus, BiPencil, BiTrash, BiShow, BiX, BiFile, BiDownload } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 function InstructorCourseList({ onCoursesUpdate }) {
   const { user } = useAuth();
@@ -23,7 +21,7 @@ function InstructorCourseList({ onCoursesUpdate }) {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/Course`);
+      const res = await api.get('/Course');
       const filtered = res.data.filter(
         (course) => course.instructorId === user?.userId
       );
@@ -50,7 +48,7 @@ function InstructorCourseList({ onCoursesUpdate }) {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/Course/${deleteConfirmation.courseId}`);
+      await api.delete(`/Course/${deleteConfirmation.courseId}`);
       toast.success("Course deleted successfully");
       fetchCourses();
     } catch (error) {

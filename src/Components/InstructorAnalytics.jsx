@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Badge, Alert } from 'react-bootstrap';
 import { BiX, BiShow } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 function InstructorAnalytics() {
   const { user } = useAuth();
@@ -22,11 +20,11 @@ function InstructorAnalytics() {
     try {
       setLoading(true);
       // Fetch all results
-      const resultsRes = await axios.get(`${API_URL}/Result`);
+      const resultsRes = await api.get('/Result');
       // Fetch all assessments
-      const assessmentsRes = await axios.get(`${API_URL}/Assessment`);
+      const assessmentsRes = await api.get('/Assessment');
       // Fetch all courses
-      const coursesRes = await axios.get(`${API_URL}/Course`);
+      const coursesRes = await api.get('/Course');
 
       // Filter courses to only include those created by the logged-in instructor
       const instructorCourses = coursesRes.data.filter(

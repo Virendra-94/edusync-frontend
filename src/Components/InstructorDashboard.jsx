@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '../config/api';
 import { toast } from 'react-toastify';
 import { Container, Row, Col, Card, Form, Button, InputGroup, Spinner } from 'react-bootstrap';
 import { BiUpload, BiFile, BiCopy } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 const InstructorDashboard = () => {
     const navigate = useNavigate();
@@ -40,7 +38,7 @@ const InstructorDashboard = () => {
         formData.append('file', selectedFile);
 
         try {
-            const response = await axios.post(`${API_URL}/file/upload`, formData, {
+            const response = await api.post('/file/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -67,7 +65,7 @@ const InstructorDashboard = () => {
         }
 
         try {
-            const response = await axios.post(`${API_URL}/courses`, courseData);
+            const response = await api.post('/courses', courseData);
             toast.success('Course created successfully!');
             navigate('/courses');
         } catch (error) {

@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import { toast } from "react-toastify";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Badge, Alert } from 'react-bootstrap';
 import { BiX } from 'react-icons/bi';
 
-const API_URL = "http://localhost:5172/api";
 const DEBOUNCE_DELAY = 300; // 300ms delay for debouncing
 
 function StudentProgressTracker() {
@@ -33,15 +32,15 @@ function StudentProgressTracker() {
     }
     try {
       // Fetch all results
-      const resultsRes = await axios.get(`${API_URL}/Result`);
+      const resultsRes = await api.get('/Result');
       // Filter results for current user
       const userResults = resultsRes.data.filter(result => result.userId === user.userId);
       
       // Fetch all assessments to get assessment titles
-      const assessmentsRes = await axios.get(`${API_URL}/Assessment`);
+      const assessmentsRes = await api.get('/Assessment');
       
       // Fetch all courses
-      const coursesRes = await axios.get(`${API_URL}/Course`);
+      const coursesRes = await api.get('/Course');
       setCourses(coursesRes.data);
       
       // Map results to include assessment titles and calculate percentages

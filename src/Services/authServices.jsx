@@ -1,36 +1,16 @@
-import axios from "axios";
-
-// Create axios instance with default config
-const api = axios.create({
-  baseURL: "http://localhost:5172/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  // Add timeout to prevent hanging requests
-  timeout: 10000,
-  // Add withCredentials to handle cookies if needed
-  withCredentials: true
-});
-
-// Add response interceptor for better error handling
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.code === "ERR_NETWORK") {
-      throw new Error("Unable to connect to the server. Please check if the server is running.");
-    }
-    if (error.code === "ERR_CERT_AUTHORITY_INVALID") {
-      throw new Error("SSL certificate validation failed. This is normal in development. Please proceed.");
-    }
-    throw error;
-  }
-);
+import { api } from '../config/api';
 
 export const loginUser = async (email, password) => {
   try {
     const res = await api.post("/auth/login", { email, password });
     return res.data;
   } catch (error) {
+    if (error.code === "ERR_NETWORK") {
+      throw new Error("Unable to connect to the server. Please check if the server is running.");
+    }
+    if (error.code === "ERR_CERT_AUTHORITY_INVALID") {
+      throw new Error("SSL certificate validation failed. This is normal in development. Please proceed.");
+    }
     throw error;
   }
 };

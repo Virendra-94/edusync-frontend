@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import LogoutButton from "../Components/LogoutButton";
@@ -9,8 +9,6 @@ import LoadingSpinner from "../Components/LoadingSpinner";
 import Notification from "../Components/Notification";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Alert, Collapse, Navbar, NavDropdown, Badge, ListGroup } from 'react-bootstrap';
 import { BiBook, BiListUl, BiBarChart, BiUserCircle, BiChevronDown, BiShow, BiFile, BiDownload, BiX } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 const StudentDashboard = () => {
   const { user } = useAuth();
@@ -31,7 +29,7 @@ const StudentDashboard = () => {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/Course`);
+      const res = await api.get('/Course');
       
       // Check for new courses
       if (courses.length > 0 && res.data.length > courses.length) {

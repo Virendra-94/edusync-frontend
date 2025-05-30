@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button, ListGroup, Badge, Alert, Spinner } from "react-bootstrap";
 import { BiArrowBack, BiCheckCircle } from "react-icons/bi";
-
-const API_URL = "http://localhost:5172/api";
 
 function StudentAssessmentList({ onNewAssessment }) {
   const { user } = useAuth();
@@ -23,7 +21,7 @@ function StudentAssessmentList({ onNewAssessment }) {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get(`${API_URL}/Course`);
+      const res = await api.get('/Course');
       setCourses(res.data);
     } catch (error) {
       console.error("Error fetching courses:", error);
@@ -34,7 +32,7 @@ function StudentAssessmentList({ onNewAssessment }) {
   const fetchAssessments = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/Assessment`);
+      const res = await api.get('/Assessment');
       setAssessments(res.data);
     } catch (error) {
       console.error("Error fetching assessments:", error);
@@ -49,7 +47,7 @@ function StudentAssessmentList({ onNewAssessment }) {
 
   const handleAttempt = async (assessment) => {
     try {
-      const res = await axios.get(`${API_URL}/Assessment/${assessment.assessmentId}`);
+      const res = await api.get(`/Assessment/${assessment.assessmentId}`);
       setSelectedAssessment(res.data);
       setAnswers({});
       setResult(null);
@@ -79,7 +77,7 @@ function StudentAssessmentList({ onNewAssessment }) {
       };
 
       console.log('Submitting assessment with payload:', payload);
-      const res = await axios.post(`${API_URL}/Result/attempt`, payload);
+      const res = await api.post('/Result/attempt', payload);
       console.log('Assessment submission response:', res.data);
       
       // Calculate percentage

@@ -1,34 +1,30 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import Notification from "./Notification";
 import { Modal, Form, Button, Card, Row, Col, InputGroup } from "react-bootstrap";
 import { BiArrowBack, BiPlus, BiTrash, BiCheck } from "react-icons/bi";
 
-const API_URL = "http://localhost:5172/api";
-
 function AssessmentForm({ assessment, onClose, courses }) {
   const { user } = useAuth();
-  const [courseId, setCourseId] = useState(assessment ? assessment.courseId : (courses[0]?.courseId || ""));
-  const [title, setTitle] = useState(assessment ? assessment.title : "");
-  const [maxScore, setMaxScore] = useState(assessment ? assessment.maxScore : 1);
+  const [title, setTitle] = useState(assessment?.title || "");
+  const [courseId, setCourseId] = useState(assessment?.courseId || "");
   const [questions, setQuestions] = useState(() => {
-    if (assessment && assessment.questions) {
+    if (assessment?.questions) {
       try {
-        const parsed = JSON.parse(assessment.questions);
-        if (Array.isArray(parsed)) return parsed;
+        return JSON.parse(assessment.questions);
       } catch {
         return [{
-          question: assessment.questions,
+          question: "",
           options: ["", "", "", ""],
-          correctIndex: 0,
+          correctIndex: 0
         }];
       }
     }
     return [{
       question: "",
       options: ["", "", "", ""],
-      correctIndex: 0,
+      correctIndex: 0
     }];
   });
   const [loading, setLoading] = useState(false);
@@ -83,44 +79,44 @@ function AssessmentForm({ assessment, onClose, courses }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
     if (!title.trim() || !courseId) {
       setNotification({ message: "Title and course are required.", type: "error" });
-      setLoading(false);
       return;
     }
     if (questions.some(q => !q.question.trim() || q.options.some(opt => !opt.trim()))) {
       setNotification({ message: "All questions and options are required.", type: "error" });
-      setLoading(false);
       return;
     }
 
+    setLoading(true);
     const payload = {
-      Title: title,
-      Questions: JSON.stringify(questions),
-      MaxScore: questions.length
+      title,
+      courseId,
+      instructorId: user.userId,
+      questions: JSON.stringify(questions),
+      maxScore: questions.length
     };
 
     try {
       if (assessment) {
-        await axios.put(`${API_URL}/Assessment/${assessment.assessmentId}`, payload);
+        await api.put(`/Assessment/${assessment.assessmentId}`, payload);
         setNotification({ message: "Assessment updated successfully!", type: "success" });
         setTimeout(() => onClose(true), 1000);
       } else {
-        await axios.post(`${API_URL}/Assessment`, {
-          ...payload,
-          CourseId: courseId
-        });
+        await api.post('/Assessment', payload);
         setNotification({ message: "Assessment created successfully!", type: "success" });
         setTimeout(() => onClose(true), 1000);
       }
     } catch (error) {
+      console.error("Error saving assessment:", error);
       if (error.response?.status === 401) {
         setNotification({ message: "Your session has expired. Please log in again.", type: "error" });
         setTimeout(() => onClose(false), 1000);
       } else {
-        setNotification({ message: "Error saving assessment", type: "error" });
+        setNotification({ 
+          message: error.response?.data?.message || "Error saving assessment", 
+          type: "error" 
+        });
       }
     } finally {
       setLoading(false);
@@ -236,16 +232,11 @@ function AssessmentForm({ assessment, onClose, courses }) {
                           </InputGroup.Text>
                           <Form.Control
                             type="text"
-                            placeholder={`Option ${optIdx + 1}`}
+                            placeholder={`Enter option ${optIdx + 1}`}
                             value={opt}
                             onChange={e => handleOptionChange(qIdx, optIdx, e.target.value)}
                             required
                           />
-                          {q.correctIndex === optIdx && (
-                            <InputGroup.Text className="bg-success text-white">
-                              <BiCheck />
-                            </InputGroup.Text>
-                          )}
                         </InputGroup>
                       </Form.Group>
                     ))}

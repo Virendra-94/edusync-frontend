@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { api } from '../config/api';
 import Notification from "./Notification";
 import { Modal, Form, Button, Container, Row, Col, Alert, ListGroup } from 'react-bootstrap';
 import { BiArrowBack, BiUpload, BiTrash, BiFile } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 function CourseForm({ course, onClose, instructorId }) {
   const [title, setTitle] = useState(course ? course.title : "");
@@ -29,11 +27,11 @@ function CourseForm({ course, onClose, instructorId }) {
 
     try {
       if (course) {
-        await axios.put(`${API_URL}/Course/${course.courseId}`, payload);
+        await api.put(`/Course/${course.courseId}`, payload);
         setNotification({ message: "Course updated successfully!", type: "success" });
         setTimeout(() => onClose(true), 1000);
       } else {
-        const response = await axios.post(`${API_URL}/Course`, payload);
+        const response = await api.post('/Course', payload);
         const newCourseId = response.data.courseId;
         
         // If there's a file selected, upload it as course material
@@ -69,7 +67,7 @@ function CourseForm({ course, onClose, instructorId }) {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/CourseMaterial/${courseId}`, formData, {
+      const response = await api.post(`/CourseMaterial/${courseId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -107,7 +105,7 @@ function CourseForm({ course, onClose, instructorId }) {
 
   const handleDeleteMaterial = async (materialId) => {
     try {
-      await axios.delete(`${API_URL}/CourseMaterial/${materialId}`);
+      await api.delete(`/CourseMaterial/${materialId}`);
       setMaterials(prev => prev.filter(m => m.materialId !== materialId));
       setNotification({ message: "Material deleted successfully", type: "success" });
     } catch (error) {

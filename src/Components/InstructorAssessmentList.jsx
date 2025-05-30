@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import AssessmentForm from "./AssessmentForm";
 import AssessmentViewer from "./AssessmentViewer";
@@ -8,8 +8,6 @@ import { toast } from "react-toastify";
 import { fetchWithCache, invalidateCache } from "../utils/dataFetching";
 import { Container, Row, Col, Card, Button, Badge, Spinner, Modal } from "react-bootstrap";
 import { BiPlus, BiPencil, BiTrash, BiX, BiShow } from "react-icons/bi";
-
-const API_URL = "http://localhost:5172/api";
 
 function InstructorAssessmentList({ courses, showAssessments, onNewAssessment }) {
   const { user } = useAuth();
@@ -63,7 +61,7 @@ function InstructorAssessmentList({ courses, showAssessments, onNewAssessment })
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`${API_URL}/Assessment/${deleteConfirmation.assessmentId}`);
+      await api.delete(`/Assessment/${deleteConfirmation.assessmentId}`);
       invalidateCache('Assessment');
       toast.success("Assessment deleted successfully");
       fetchAssessments(true);

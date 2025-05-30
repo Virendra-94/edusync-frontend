@@ -3,15 +3,13 @@ import LogoutButton from "../Components/LogoutButton";
 import InstructorCourseList from "../Components/InstructorCourseList";
 import InstructorAssessmentList from "../Components/InstructorAssessmentList";
 import { useAuth } from "../Context/AuthContext";
-import axios from "axios";
+import { api } from '../config/api';
 import InstructorAnalytics from "../Components/InstructorAnalytics";
 import LoadingSpinner from "../Components/LoadingSpinner";
 import Notification from "../Components/Notification";
 import FileUpload from "../Components/FileUpload";
 import { Container, Row, Col, Button, Collapse, Card, Navbar, NavDropdown, Spinner } from 'react-bootstrap';
 import { BiBook, BiListUl, BiBarChart, BiUpload, BiUserCircle, BiChevronDown } from 'react-icons/bi';
-
-const API_URL = "http://localhost:5172/api";
 
 const InstructorDashboard = () => {
   const { user } = useAuth();
@@ -30,8 +28,8 @@ const InstructorDashboard = () => {
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/Course`);
-      const filtered = res.data.filter(
+      const response = await api.get('/Course');
+      const filtered = response.data.filter(
         (course) => course.instructorId === user?.userId
       );
       

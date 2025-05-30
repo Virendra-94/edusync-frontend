@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import { Container, Spinner, Alert, Table, Card } from 'react-bootstrap';
-
-const API_URL = "https://localhost:7136/api";
 
 function StudentAssessmentHistory() {
   const { user } = useAuth();
@@ -17,7 +15,7 @@ function StudentAssessmentHistory() {
   const fetchAssessmentHistory = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/Assessment/history/${user.userId}`);
+      const res = await api.get(`/Assessment/history/${user.userId}`);
       setHistory(res.data);
     } catch (error) {
       console.error("Error fetching assessment history:", error);

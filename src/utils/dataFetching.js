@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { api, API_URL } from '../config/api';
 
 const CACHE_DURATION = 30000; // 30 seconds cache
-const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
 
 // Cache storage
 const cache = new Map();
@@ -17,7 +17,7 @@ export const fetchWithCache = async (endpoint, forceRefresh = false) => {
   }
 
   try {
-    const response = await axios.get(`${API_URL}/${endpoint}`, {
+    const response = await api.get(`/${endpoint}`, {
       headers: {
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache'
