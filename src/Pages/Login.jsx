@@ -50,13 +50,13 @@ const Login = () => {
   };
 
   return (
-    <Container fluid className="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+    <Container fluid className="min-vh-100 d-flex align-items-center mt-5 justify-content-center bg-light">
       <Row className="w-100 justify-content-center">
         <Col xs={12} sm={10} md={8} lg={6} xl={5}>
           {notification.show && (
             <Alert 
               variant={notification.type} 
-              className="position-fixed top-0 start-50 translate-middle-x mt-3"
+              className="position-fixed top-2 start-50 translate-middle-x mt-5"
               style={{ zIndex: 1000 }}
               onClose={() => setNotification(prev => ({ ...prev, show: false }))}
               dismissible
