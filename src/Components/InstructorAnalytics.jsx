@@ -4,6 +4,11 @@ import { useAuth } from "../Context/AuthContext";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Badge, Alert } from 'react-bootstrap';
 import { BiX, BiShow } from 'react-icons/bi';
 
+<<<<<<< HEAD
+=======
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
+
+>>>>>>> 90fcf49e65abd094749387b70921189a722f8d82
 function InstructorAnalytics() {
   const { user } = useAuth();
   const [results, setResults] = useState([]);

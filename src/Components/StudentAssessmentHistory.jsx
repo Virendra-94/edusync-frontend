@@ -3,6 +3,11 @@ import { api } from '../config/api';
 import { useAuth } from "../Context/AuthContext";
 import { Container, Spinner, Alert, Table, Card } from 'react-bootstrap';
 
+<<<<<<< HEAD
+=======
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
+
+>>>>>>> 90fcf49e65abd094749387b70921189a722f8d82
 function StudentAssessmentHistory() {
   const { user } = useAuth();
   const [history, setHistory] = useState([]);

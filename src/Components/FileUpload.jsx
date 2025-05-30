@@ -4,6 +4,11 @@ import { toast } from 'react-toastify';
 import { Container, Form, Button, Card, InputGroup } from 'react-bootstrap';
 import { BiUpload, BiCopy, BiFile } from 'react-icons/bi';
 
+<<<<<<< HEAD
+=======
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
+
+>>>>>>> 90fcf49e65abd094749387b70921189a722f8d82
 const FileUpload = ({ onUploadSuccess }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploading, setUploading] = useState(false);

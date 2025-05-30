@@ -7,6 +7,11 @@ import { toast } from "react-toastify";
 import { Container, Row, Col, Card, Button, Modal, Spinner, Alert, Badge, ListGroup } from 'react-bootstrap';
 import { BiPlus, BiPencil, BiTrash, BiShow, BiX, BiFile, BiDownload } from 'react-icons/bi';
 
+<<<<<<< HEAD
+=======
+const API_URL = "https://edusyncvirendrabackend-g2gyedfxasagg2dt.centralindia-01.azurewebsites.net/api";
+
+>>>>>>> 90fcf49e65abd094749387b70921189a722f8d82
 function InstructorCourseList({ onCoursesUpdate }) {
   const { user } = useAuth();
   const instructorId = user?.userId;
